@@ -12,7 +12,7 @@ namespace Game_App
 {
     public partial class Login : Form
     {
-        Game_App_DBEntities db = new Game_App_DBEntities();
+        Game_App_DBEntities1 db = new Game_App_DBEntities1();
         public static string ReturnPlayerName { get; set; }
         public static bool ReturnIsConnected { get; set; }
 
@@ -36,6 +36,7 @@ namespace Game_App
             string username = UsernameBox.Text;
             string email = EmailBox.Text;
             string password = PasswordBox.Text;
+            ReturnIsConnected = false;
 
             if (!(string.IsNullOrEmpty(UsernameBox.Text) || string.IsNullOrEmpty(EmailBox.Text) || string.IsNullOrEmpty(PasswordBox.Text)))
             {
@@ -51,6 +52,9 @@ namespace Game_App
                 if (ReturnIsConnected)
                 {
                     Close();
+                } else
+                {
+                    MessageBox.Show("Try again");
                 }
 
             }

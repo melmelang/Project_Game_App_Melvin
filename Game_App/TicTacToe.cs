@@ -14,17 +14,11 @@ namespace Game_App
     
     public partial class TicTacToe
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TicTacToe()
-        {
-            this.Player = new HashSet<Player>();
-        }
-    
         public int TicTacToeId { get; set; }
         public int Wins { get; set; }
         public int Loses { get; set; }
+        public int PlayerId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Player> Player { get; set; }
+        public virtual Player Player { get; set; }
     }
 }

@@ -32,6 +32,8 @@
             this.PlayerNameLabel = new System.Windows.Forms.ToolStripMenuItem();
             this.SudokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tikTakToeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dashboardMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -50,6 +52,9 @@
             // 
             // PlayerNameLabel
             // 
+            this.PlayerNameLabel.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.disconnectToolStripMenuItem,
+            this.closeToolStripMenuItem});
             this.PlayerNameLabel.Name = "PlayerNameLabel";
             this.PlayerNameLabel.Size = new System.Drawing.Size(63, 24);
             this.PlayerNameLabel.Text = "Player";
@@ -66,6 +71,20 @@
             this.tikTakToeToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
             this.tikTakToeToolStripMenuItem.Text = "Tik-Tak-Toe";
             this.tikTakToeToolStripMenuItem.Click += new System.EventHandler(this.tikTakToeToolStripMenuItem_Click);
+            // 
+            // disconnectToolStripMenuItem
+            // 
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // Dashboard
             // 
@@ -89,6 +108,8 @@
         private System.Windows.Forms.ToolStripMenuItem PlayerNameLabel;
         private System.Windows.Forms.ToolStripMenuItem SudokuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tikTakToeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     }
 }
 

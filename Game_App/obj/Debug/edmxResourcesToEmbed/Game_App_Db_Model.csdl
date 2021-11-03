@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Game_App_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Sudoku" Relationship="Self.PlayerSudoku" FromRole="Player" ToRole="Sudoku" />
+    <NavigationProperty Name="TicTacToe" Relationship="Self.PlayerTicTacToe" FromRole="Player" ToRole="TicTacToe" />
+  </EntityType>
+  <EntityType Name="Sudoku">
+    <Key>
+      <PropertyRef Name="SudokuId" />
+    </Key>
+    <Property Name="SudokuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Score" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PlayerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Player" Relationship="Self.PlayerSudoku" FromRole="Sudoku" ToRole="Player" />
+  </EntityType>
+  <EntityType Name="TicTacToe">
+    <Key>
+      <PropertyRef Name="TicTacToeId" />
+    </Key>
+    <Property Name="TicTacToeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Wins" Type="Int32" Nullable="false" />
+    <Property Name="Loses" Type="Int32" Nullable="false" />
+    <Property Name="PlayerId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Player" Relationship="Self.PlayerTicTacToe" FromRole="TicTacToe" ToRole="Player" />
+  </EntityType>
+  <Association Name="PlayerSudoku">
+    <End Role="Player" Type="Self.Player" Multiplicity="1" />
+    <End Role="Sudoku" Type="Self.Sudoku" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="Sudoku">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PlayerTicTacToe">
+    <End Role="Player" Type="Self.Player" Multiplicity="1" />
+    <End Role="TicTacToe" Type="Self.TicTacToe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Player">
+        <PropertyRef Name="PlayerId" />
+      </Principal>
+      <Dependent Role="TicTacToe">
+        <PropertyRef Name="PlayerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Game_App_DBEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Player" EntityType="Self.Player" />
+    <EntitySet Name="Sudoku" EntityType="Self.Sudoku" />
+    <EntitySet Name="TicTacToe" EntityType="Self.TicTacToe" />
+    <AssociationSet Name="PlayerSudoku" Association="Self.PlayerSudoku">
+      <End Role="Player" EntitySet="Player" />
+      <End Role="Sudoku" EntitySet="Sudoku" />
+    </AssociationSet>
+    <AssociationSet Name="PlayerTicTacToe" Association="Self.PlayerTicTacToe">
+      <End Role="Player" EntitySet="Player" />
+      <End Role="TicTacToe" EntitySet="TicTacToe" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

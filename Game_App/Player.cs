@@ -14,14 +14,21 @@ namespace Game_App
     
     public partial class Player
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Player()
+        {
+            this.Sudoku = new HashSet<Sudoku>();
+            this.TicTacToe = new HashSet<TicTacToe>();
+        }
+    
         public int PlayerId { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public Nullable<int> TicTacToeId { get; set; }
-        public Nullable<int> SudokuId { get; set; }
     
-        public virtual Sudoku Sudoku { get; set; }
-        public virtual TicTacToe TicTacToe { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sudoku> Sudoku { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TicTacToe> TicTacToe { get; set; }
     }
 }

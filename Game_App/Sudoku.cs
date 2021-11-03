@@ -14,16 +14,10 @@ namespace Game_App
     
     public partial class Sudoku
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Sudoku()
-        {
-            this.Player = new HashSet<Player>();
-        }
-    
         public int SudokuId { get; set; }
         public string Score { get; set; }
+        public int PlayerId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Player> Player { get; set; }
+        public virtual Player Player { get; set; }
     }
 }

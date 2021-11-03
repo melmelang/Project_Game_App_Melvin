@@ -12,6 +12,7 @@ namespace Game_App
 {
     public partial class TicTacToeForm : Form
     {
+        Game_App_DBEntities1 db = new Game_App_DBEntities1();
         public List<Button> buttonList = new List<Button>();
         Random rnd = new Random();
 
@@ -61,6 +62,10 @@ namespace Game_App
                 string.IsNullOrEmpty(TIC9.Text))))
             {
                 MessageBox.Show("you win");
+
+
+
+                RetryGame();
             }
         }
 
@@ -92,7 +97,44 @@ namespace Game_App
                 string.IsNullOrEmpty(TIC9.Text))))
             {
                 MessageBox.Show("you lose");
+                RetryGame();
             }
+        }
+
+        public void RetryGame()
+        {
+            TIC1.Text = null;
+            TIC2.Text = null;
+            TIC3.Text = null;
+            TIC4.Text = null;
+            TIC5.Text = null;
+            TIC6.Text = null;
+            TIC7.Text = null;
+            TIC8.Text = null;
+            TIC9.Text = null;
+
+            TIC1.Enabled = true;
+            TIC2.Enabled = true;
+            TIC3.Enabled = true;
+            TIC4.Enabled = true;
+            TIC5.Enabled = true;
+            TIC6.Enabled = true;
+            TIC7.Enabled = true;
+            TIC8.Enabled = true;
+            TIC9.Enabled = true;
+
+            buttonList.Clear();
+
+            buttonList.Add(TIC1);
+            buttonList.Add(TIC2);
+            buttonList.Add(TIC3);
+            buttonList.Add(TIC4);
+            buttonList.Add(TIC5);
+            buttonList.Add(TIC6);
+            buttonList.Add(TIC6);
+            buttonList.Add(TIC7);
+            buttonList.Add(TIC8);
+            buttonList.Add(TIC9);
         }
 
         public void Bot()
@@ -195,38 +237,7 @@ namespace Game_App
 
         private void Retry_Click(object sender, EventArgs e)
         {
-            TIC1.Text = null;
-            TIC2.Text = null;
-            TIC3.Text = null;
-            TIC4.Text = null;
-            TIC5.Text = null;
-            TIC6.Text = null;
-            TIC7.Text = null;
-            TIC8.Text = null;
-            TIC9.Text = null;
-
-            TIC1.Enabled = true;
-            TIC2.Enabled = true;
-            TIC3.Enabled = true;
-            TIC4.Enabled = true;
-            TIC5.Enabled = true;
-            TIC6.Enabled = true;
-            TIC7.Enabled = true;
-            TIC8.Enabled = true;
-            TIC9.Enabled = true;
-
-            buttonList.Clear();
-
-            buttonList.Add(TIC1);
-            buttonList.Add(TIC2);
-            buttonList.Add(TIC3);
-            buttonList.Add(TIC4);
-            buttonList.Add(TIC5);
-            buttonList.Add(TIC6);
-            buttonList.Add(TIC6);
-            buttonList.Add(TIC7);
-            buttonList.Add(TIC8);
-            buttonList.Add(TIC9);
+            RetryGame();
         }
 
         private void Leave_Click(object sender, EventArgs e)

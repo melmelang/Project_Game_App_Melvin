@@ -37,5 +37,23 @@ namespace Game_App
             TicTacToeForm ticTacToe = new TicTacToeForm();
             ticTacToe.ShowDialog();
         }
+
+        private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Login login = new Login();
+            Login.ReturnIsConnected = false;
+            login.ShowDialog();
+            playerName = Login.ReturnPlayerName;
+            isConnected = Login.ReturnIsConnected;
+
+            PlayerNameLabel.Text = playerName;
+            if (Login.ReturnIsConnected == false)
+                Close();
+        }
+
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

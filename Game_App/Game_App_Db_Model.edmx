@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Game_App_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sudoku">
+          <Key>
+            <PropertyRef Name="SudokuId" />
+          </Key>
+          <Property Name="SudokuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Score" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TicTacToe">
+          <Key>
+            <PropertyRef Name="TicTacToeId" />
+          </Key>
+          <Property Name="TicTacToeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Wins" Type="int" Nullable="false" />
+          <Property Name="Loses" Type="int" Nullable="false" />
+          <Property Name="PlayerId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="PlayerSudoku">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Sudoku" Type="Self.Sudoku" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="Sudoku">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlayerTicTacToe">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="TicTacToe" Type="Self.TicTacToe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="TicTacToe">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Game_App_DBModelStoreContainer">
+          <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sudoku" EntityType="Self.Sudoku" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicTacToe" EntityType="Self.TicTacToe" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="PlayerSudoku" Association="Self.PlayerSudoku">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Sudoku" EntitySet="Sudoku" />
+          </AssociationSet>
+          <AssociationSet Name="PlayerTicTacToe" Association="Self.PlayerTicTacToe">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="TicTacToe" EntitySet="TicTacToe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Game_App_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Player">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Sudoku" Relationship="Self.PlayerSudoku" FromRole="Player" ToRole="Sudoku" />
+          <NavigationProperty Name="TicTacToe" Relationship="Self.PlayerTicTacToe" FromRole="Player" ToRole="TicTacToe" />
+        </EntityType>
+        <EntityType Name="Sudoku">
+          <Key>
+            <PropertyRef Name="SudokuId" />
+          </Key>
+          <Property Name="SudokuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Score" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Self.PlayerSudoku" FromRole="Sudoku" ToRole="Player" />
+        </EntityType>
+        <EntityType Name="TicTacToe">
+          <Key>
+            <PropertyRef Name="TicTacToeId" />
+          </Key>
+          <Property Name="TicTacToeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Wins" Type="Int32" Nullable="false" />
+          <Property Name="Loses" Type="Int32" Nullable="false" />
+          <Property Name="PlayerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Player" Relationship="Self.PlayerTicTacToe" FromRole="TicTacToe" ToRole="Player" />
+        </EntityType>
+        <Association Name="PlayerSudoku">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="Sudoku" Type="Self.Sudoku" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="Sudoku">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PlayerTicTacToe">
+          <End Role="Player" Type="Self.Player" Multiplicity="1" />
+          <End Role="TicTacToe" Type="Self.TicTacToe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Player">
+              <PropertyRef Name="PlayerId" />
+            </Principal>
+            <Dependent Role="TicTacToe">
+              <PropertyRef Name="PlayerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Game_App_DBEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Player" EntityType="Self.Player" />
+          <EntitySet Name="Sudoku" EntityType="Self.Sudoku" />
+          <EntitySet Name="TicTacToe" EntityType="Self.TicTacToe" />
+          <AssociationSet Name="PlayerSudoku" Association="Self.PlayerSudoku">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="Sudoku" EntitySet="Sudoku" />
+          </AssociationSet>
+          <AssociationSet Name="PlayerTicTacToe" Association="Self.PlayerTicTacToe">
+            <End Role="Player" EntitySet="Player" />
+            <End Role="TicTacToe" EntitySet="TicTacToe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Game_App_DBModelStoreContainer" CdmEntityContainer="Game_App_DBEntities1">
+          <EntitySetMapping Name="Player">
+            <EntityTypeMapping TypeName="Game_App_DBModel.Player">
+              <MappingFragment StoreEntitySet="Player">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sudoku">
+            <EntityTypeMapping TypeName="Game_App_DBModel.Sudoku">
+              <MappingFragment StoreEntitySet="Sudoku">
+                <ScalarProperty Name="SudokuId" ColumnName="SudokuId" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicTacToe">
+            <EntityTypeMapping TypeName="Game_App_DBModel.TicTacToe">
+              <MappingFragment StoreEntitySet="TicTacToe">
+                <ScalarProperty Name="TicTacToeId" ColumnName="TicTacToeId" />
+                <ScalarProperty Name="Wins" ColumnName="Wins" />
+                <ScalarProperty Name="Loses" ColumnName="Loses" />
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

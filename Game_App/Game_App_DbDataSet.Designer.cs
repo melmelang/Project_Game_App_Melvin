@@ -30,9 +30,9 @@ namespace Game_App {
         
         private TicTacToeDataTable tableTicTacToe;
         
-        private global::System.Data.DataRelation relationFK_Sudoku;
+        private global::System.Data.DataRelation relationPlayerSudoku;
         
-        private global::System.Data.DataRelation relationFK_TicTacToe;
+        private global::System.Data.DataRelation relationPlayerTicTacToe;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -246,8 +246,8 @@ namespace Game_App {
                     this.tableTicTacToe.InitVars();
                 }
             }
-            this.relationFK_Sudoku = this.Relations["FK_Sudoku"];
-            this.relationFK_TicTacToe = this.Relations["FK_TicTacToe"];
+            this.relationPlayerSudoku = this.Relations["PlayerSudoku"];
+            this.relationPlayerTicTacToe = this.Relations["PlayerTicTacToe"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -264,14 +264,14 @@ namespace Game_App {
             base.Tables.Add(this.tableSudoku);
             this.tableTicTacToe = new TicTacToeDataTable();
             base.Tables.Add(this.tableTicTacToe);
-            this.relationFK_Sudoku = new global::System.Data.DataRelation("FK_Sudoku", new global::System.Data.DataColumn[] {
-                        this.tableSudoku.SudokuIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tablePlayer.SudokuIdColumn}, false);
-            this.Relations.Add(this.relationFK_Sudoku);
-            this.relationFK_TicTacToe = new global::System.Data.DataRelation("FK_TicTacToe", new global::System.Data.DataColumn[] {
-                        this.tableTicTacToe.TicTacToeIdColumn}, new global::System.Data.DataColumn[] {
-                        this.tablePlayer.TicTacToeIdColumn}, false);
-            this.Relations.Add(this.relationFK_TicTacToe);
+            this.relationPlayerSudoku = new global::System.Data.DataRelation("PlayerSudoku", new global::System.Data.DataColumn[] {
+                        this.tablePlayer.PlayerIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSudoku.PlayerIdColumn}, false);
+            this.Relations.Add(this.relationPlayerSudoku);
+            this.relationPlayerTicTacToe = new global::System.Data.DataRelation("PlayerTicTacToe", new global::System.Data.DataColumn[] {
+                        this.tablePlayer.PlayerIdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableTicTacToe.PlayerIdColumn}, false);
+            this.Relations.Add(this.relationPlayerTicTacToe);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -371,10 +371,6 @@ namespace Game_App {
             
             private global::System.Data.DataColumn columnPassword;
             
-            private global::System.Data.DataColumn columnTicTacToeId;
-            
-            private global::System.Data.DataColumn columnSudokuId;
-            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public PlayerDataTable() {
@@ -442,22 +438,6 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn TicTacToeIdColumn {
-                get {
-                    return this.columnTicTacToeId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public global::System.Data.DataColumn SudokuIdColumn {
-                get {
-                    return this.columnSudokuId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -493,21 +473,13 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlayerRow AddPlayerRow(string UserName, string Email, string Password, TicTacToeRow parentTicTacToeRowByFK_TicTacToe, SudokuRow parentSudokuRowByFK_Sudoku) {
+            public PlayerRow AddPlayerRow(string UserName, string Email, string Password) {
                 PlayerRow rowPlayerRow = ((PlayerRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         UserName,
                         Email,
-                        Password,
-                        null,
-                        null};
-                if ((parentTicTacToeRowByFK_TicTacToe != null)) {
-                    columnValuesArray[4] = parentTicTacToeRowByFK_TicTacToe[0];
-                }
-                if ((parentSudokuRowByFK_Sudoku != null)) {
-                    columnValuesArray[5] = parentSudokuRowByFK_Sudoku[0];
-                }
+                        Password};
                 rowPlayerRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPlayerRow);
                 return rowPlayerRow;
@@ -541,8 +513,6 @@ namespace Game_App {
                 this.columnUserName = base.Columns["UserName"];
                 this.columnEmail = base.Columns["Email"];
                 this.columnPassword = base.Columns["Password"];
-                this.columnTicTacToeId = base.Columns["TicTacToeId"];
-                this.columnSudokuId = base.Columns["SudokuId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -556,10 +526,6 @@ namespace Game_App {
                 base.Columns.Add(this.columnEmail);
                 this.columnPassword = new global::System.Data.DataColumn("Password", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPassword);
-                this.columnTicTacToeId = new global::System.Data.DataColumn("TicTacToeId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTicTacToeId);
-                this.columnSudokuId = new global::System.Data.DataColumn("SudokuId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSudokuId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnPlayerId}, true));
                 this.columnPlayerId.AutoIncrement = true;
@@ -711,6 +677,8 @@ namespace Game_App {
             
             private global::System.Data.DataColumn columnScore;
             
+            private global::System.Data.DataColumn columnPlayerId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public SudokuDataTable() {
@@ -762,6 +730,14 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PlayerIdColumn {
+                get {
+                    return this.columnPlayerId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -797,11 +773,15 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public SudokuRow AddSudokuRow(string Score) {
+            public SudokuRow AddSudokuRow(string Score, PlayerRow parentPlayerRowByPlayerSudoku) {
                 SudokuRow rowSudokuRow = ((SudokuRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
-                        Score};
+                        Score,
+                        null};
+                if ((parentPlayerRowByPlayerSudoku != null)) {
+                    columnValuesArray[2] = parentPlayerRowByPlayerSudoku[0];
+                }
                 rowSudokuRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSudokuRow);
                 return rowSudokuRow;
@@ -833,6 +813,7 @@ namespace Game_App {
             internal void InitVars() {
                 this.columnSudokuId = base.Columns["SudokuId"];
                 this.columnScore = base.Columns["Score"];
+                this.columnPlayerId = base.Columns["PlayerId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -842,6 +823,8 @@ namespace Game_App {
                 base.Columns.Add(this.columnSudokuId);
                 this.columnScore = new global::System.Data.DataColumn("Score", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnScore);
+                this.columnPlayerId = new global::System.Data.DataColumn("PlayerId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPlayerId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnSudokuId}, true));
                 this.columnSudokuId.AutoIncrement = true;
@@ -852,6 +835,7 @@ namespace Game_App {
                 this.columnSudokuId.Unique = true;
                 this.columnScore.AllowDBNull = false;
                 this.columnScore.MaxLength = 50;
+                this.columnPlayerId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -991,6 +975,8 @@ namespace Game_App {
             
             private global::System.Data.DataColumn columnLoses;
             
+            private global::System.Data.DataColumn columnPlayerId;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public TicTacToeDataTable() {
@@ -1050,6 +1036,14 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn PlayerIdColumn {
+                get {
+                    return this.columnPlayerId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1085,12 +1079,16 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public TicTacToeRow AddTicTacToeRow(int Wins, int Loses) {
+            public TicTacToeRow AddTicTacToeRow(int Wins, int Loses, PlayerRow parentPlayerRowByPlayerTicTacToe) {
                 TicTacToeRow rowTicTacToeRow = ((TicTacToeRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Wins,
-                        Loses};
+                        Loses,
+                        null};
+                if ((parentPlayerRowByPlayerTicTacToe != null)) {
+                    columnValuesArray[3] = parentPlayerRowByPlayerTicTacToe[0];
+                }
                 rowTicTacToeRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTicTacToeRow);
                 return rowTicTacToeRow;
@@ -1123,6 +1121,7 @@ namespace Game_App {
                 this.columnTicTacToeId = base.Columns["TicTacToeId"];
                 this.columnWins = base.Columns["Wins"];
                 this.columnLoses = base.Columns["Loses"];
+                this.columnPlayerId = base.Columns["PlayerId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1134,6 +1133,8 @@ namespace Game_App {
                 base.Columns.Add(this.columnWins);
                 this.columnLoses = new global::System.Data.DataColumn("Loses", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLoses);
+                this.columnPlayerId = new global::System.Data.DataColumn("PlayerId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPlayerId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTicTacToeId}, true));
                 this.columnTicTacToeId.AutoIncrement = true;
@@ -1144,6 +1145,7 @@ namespace Game_App {
                 this.columnTicTacToeId.Unique = true;
                 this.columnWins.AllowDBNull = false;
                 this.columnLoses.AllowDBNull = false;
+                this.columnPlayerId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1330,80 +1332,24 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int TicTacToeId {
-                get {
-                    try {
-                        return ((int)(this[this.tablePlayer.TicTacToeIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'TicTacToeId\' in table \'Player\' is DBNull.", e);
-                    }
+            public SudokuRow[] GetSudokuRows() {
+                if ((this.Table.ChildRelations["PlayerSudoku"] == null)) {
+                    return new SudokuRow[0];
                 }
-                set {
-                    this[this.tablePlayer.TicTacToeIdColumn] = value;
+                else {
+                    return ((SudokuRow[])(base.GetChildRows(this.Table.ChildRelations["PlayerSudoku"])));
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public int SudokuId {
-                get {
-                    try {
-                        return ((int)(this[this.tablePlayer.SudokuIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'SudokuId\' in table \'Player\' is DBNull.", e);
-                    }
+            public TicTacToeRow[] GetTicTacToeRows() {
+                if ((this.Table.ChildRelations["PlayerTicTacToe"] == null)) {
+                    return new TicTacToeRow[0];
                 }
-                set {
-                    this[this.tablePlayer.SudokuIdColumn] = value;
+                else {
+                    return ((TicTacToeRow[])(base.GetChildRows(this.Table.ChildRelations["PlayerTicTacToe"])));
                 }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public SudokuRow SudokuRow {
-                get {
-                    return ((SudokuRow)(this.GetParentRow(this.Table.ParentRelations["FK_Sudoku"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Sudoku"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public TicTacToeRow TicTacToeRow {
-                get {
-                    return ((TicTacToeRow)(this.GetParentRow(this.Table.ParentRelations["FK_TicTacToe"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_TicTacToe"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsTicTacToeIdNull() {
-                return this.IsNull(this.tablePlayer.TicTacToeIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetTicTacToeIdNull() {
-                this[this.tablePlayer.TicTacToeIdColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public bool IsSudokuIdNull() {
-                return this.IsNull(this.tablePlayer.SudokuIdColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public void SetSudokuIdNull() {
-                this[this.tablePlayer.SudokuIdColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -1445,12 +1391,23 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlayerRow[] GetPlayerRows() {
-                if ((this.Table.ChildRelations["FK_Sudoku"] == null)) {
-                    return new PlayerRow[0];
+            public int PlayerId {
+                get {
+                    return ((int)(this[this.tableSudoku.PlayerIdColumn]));
                 }
-                else {
-                    return ((PlayerRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Sudoku"])));
+                set {
+                    this[this.tableSudoku.PlayerIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public PlayerRow PlayerRow {
+                get {
+                    return ((PlayerRow)(this.GetParentRow(this.Table.ParentRelations["PlayerSudoku"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PlayerSudoku"]);
                 }
             }
         }
@@ -1504,12 +1461,23 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public PlayerRow[] GetPlayerRows() {
-                if ((this.Table.ChildRelations["FK_TicTacToe"] == null)) {
-                    return new PlayerRow[0];
+            public int PlayerId {
+                get {
+                    return ((int)(this[this.tableTicTacToe.PlayerIdColumn]));
                 }
-                else {
-                    return ((PlayerRow[])(base.GetChildRows(this.Table.ChildRelations["FK_TicTacToe"])));
+                set {
+                    this[this.tableTicTacToe.PlayerIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public PlayerRow PlayerRow {
+                get {
+                    return ((PlayerRow)(this.GetParentRow(this.Table.ParentRelations["PlayerTicTacToe"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["PlayerTicTacToe"]);
                 }
             }
         }
@@ -1745,49 +1713,38 @@ namespace Game_App.Game_App_DbDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("UserName", "UserName");
             tableMapping.ColumnMappings.Add("Email", "Email");
             tableMapping.ColumnMappings.Add("Password", "Password");
-            tableMapping.ColumnMappings.Add("TicTacToeId", "TicTacToeId");
-            tableMapping.ColumnMappings.Add("SudokuId", "SudokuId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Player] WHERE (([PlayerId] = @Original_PlayerId) AND ([UserName] = @Original_UserName) AND ([Email] = @Original_Email) AND ([Password] = @Original_Password) AND ((@IsNull_TicTacToeId = 1 AND [TicTacToeId] IS NULL) OR ([TicTacToeId] = @Original_TicTacToeId)) AND ((@IsNull_SudokuId = 1 AND [SudokuId] IS NULL) OR ([SudokuId] = @Original_SudokuId)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Player] WHERE (([PlayerId] = @Original_PlayerId) AND ([UserNam" +
+                "e] = @Original_UserName) AND ([Email] = @Original_Email) AND ([Password] = @Orig" +
+                "inal_Password))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UserName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Email", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Player] ([UserName], [Email], [Password], [TicTacToeId], [SudokuId]) VALUES (@UserName, @Email, @Password, @TicTacToeId, @SudokuId);
-SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WHERE (PlayerId = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Player] ([UserName], [Email], [Password]) VALUES (@UserName, @" +
+                "Email, @Password);\r\nSELECT PlayerId, UserName, Email, Password FROM Player WHERE" +
+                " (PlayerId = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Email", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Player] SET [UserName] = @UserName, [Email] = @Email, [Password] = @Password, [TicTacToeId] = @TicTacToeId, [SudokuId] = @SudokuId WHERE (([PlayerId] = @Original_PlayerId) AND ([UserName] = @Original_UserName) AND ([Email] = @Original_Email) AND ([Password] = @Original_Password) AND ((@IsNull_TicTacToeId = 1 AND [TicTacToeId] IS NULL) OR ([TicTacToeId] = @Original_TicTacToeId)) AND ((@IsNull_SudokuId = 1 AND [SudokuId] IS NULL) OR ([SudokuId] = @Original_SudokuId)));
-SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WHERE (PlayerId = @PlayerId)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Player] SET [UserName] = @UserName, [Email] = @Email, [Password] = @Password WHERE (([PlayerId] = @Original_PlayerId) AND ([UserName] = @Original_UserName) AND ([Email] = @Original_Email) AND ([Password] = @Original_Password));
+SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @PlayerId)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserName", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Email", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_UserName", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "UserName", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Email", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Email", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Password", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Password", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -1804,8 +1761,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM dbo.Player" +
-                "";
+            this._commandCollection[0].CommandText = "SELECT PlayerId, UserName, Email, Password FROM dbo.Player";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -1866,7 +1822,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password, global::System.Nullable<int> Original_TicTacToeId, global::System.Nullable<int> Original_SudokuId) {
+        public virtual int Delete(int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_PlayerId));
             if ((Original_UserName == null)) {
                 throw new global::System.ArgumentNullException("Original_UserName");
@@ -1885,22 +1841,6 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((string)(Original_Password));
-            }
-            if ((Original_TicTacToeId.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_TicTacToeId.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            if ((Original_SudokuId.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_SudokuId.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1922,7 +1862,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string UserName, string Email, string Password, global::System.Nullable<int> TicTacToeId, global::System.Nullable<int> SudokuId) {
+        public virtual int Insert(string UserName, string Email, string Password) {
             if ((UserName == null)) {
                 throw new global::System.ArgumentNullException("UserName");
             }
@@ -1940,18 +1880,6 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Password));
-            }
-            if ((TicTacToeId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((int)(TicTacToeId.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((SudokuId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(SudokuId.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -1973,7 +1901,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string UserName, string Email, string Password, global::System.Nullable<int> TicTacToeId, global::System.Nullable<int> SudokuId, int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password, global::System.Nullable<int> Original_TicTacToeId, global::System.Nullable<int> Original_SudokuId, int PlayerId) {
+        public virtual int Update(string UserName, string Email, string Password, int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password, int PlayerId) {
             if ((UserName == null)) {
                 throw new global::System.ArgumentNullException("UserName");
             }
@@ -1992,54 +1920,26 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Password));
             }
-            if ((TicTacToeId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(TicTacToeId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            if ((SudokuId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(SudokuId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_PlayerId));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_PlayerId));
             if ((Original_UserName == null)) {
                 throw new global::System.ArgumentNullException("Original_UserName");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_UserName));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Original_UserName));
             }
             if ((Original_Email == null)) {
                 throw new global::System.ArgumentNullException("Original_Email");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Email));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Original_Email));
             }
             if ((Original_Password == null)) {
                 throw new global::System.ArgumentNullException("Original_Password");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_Password));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Password));
             }
-            if ((Original_TicTacToeId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_TicTacToeId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((Original_SudokuId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_SudokuId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(PlayerId));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2060,8 +1960,8 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string UserName, string Email, string Password, global::System.Nullable<int> TicTacToeId, global::System.Nullable<int> SudokuId, int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password, global::System.Nullable<int> Original_TicTacToeId, global::System.Nullable<int> Original_SudokuId) {
-            return this.Update(UserName, Email, Password, TicTacToeId, SudokuId, Original_PlayerId, Original_UserName, Original_Email, Original_Password, Original_TicTacToeId, Original_SudokuId, Original_PlayerId);
+        public virtual int Update(string UserName, string Email, string Password, int Original_PlayerId, string Original_UserName, string Original_Email, string Original_Password) {
+            return this.Update(UserName, Email, Password, Original_PlayerId, Original_UserName, Original_Email, Original_Password, Original_PlayerId);
         }
     }
     
@@ -2188,29 +2088,35 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             tableMapping.DataSetTable = "Sudoku";
             tableMapping.ColumnMappings.Add("SudokuId", "SudokuId");
             tableMapping.ColumnMappings.Add("Score", "Score");
+            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Sudoku] WHERE (([SudokuId] = @Original_SudokuId) AND ([Score] " +
-                "= @Original_Score))";
+                "= @Original_Score) AND ([PlayerId] = @Original_PlayerId))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Sudoku] ([Score]) VALUES (@Score);\r\nSELECT SudokuId, Score FRO" +
-                "M Sudoku WHERE (SudokuId = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Sudoku] ([Score], [PlayerId]) VALUES (@Score, @PlayerId);\r\nSEL" +
+                "ECT SudokuId, Score, PlayerId FROM Sudoku WHERE (SudokuId = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Sudoku] SET [Score] = @Score WHERE (([SudokuId] = @Original_SudokuI" +
-                "d) AND ([Score] = @Original_Score));\r\nSELECT SudokuId, Score FROM Sudoku WHERE (" +
-                "SudokuId = @SudokuId)";
+            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Sudoku] SET [Score] = @Score, [PlayerId] = @PlayerId WHERE (([Sudok" +
+                "uId] = @Original_SudokuId) AND ([Score] = @Original_Score) AND ([PlayerId] = @Or" +
+                "iginal_PlayerId));\r\nSELECT SudokuId, Score, PlayerId FROM Sudoku WHERE (SudokuId" +
+                " = @SudokuId)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SudokuId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -2227,7 +2133,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT SudokuId, Score FROM dbo.Sudoku";
+            this._commandCollection[0].CommandText = "SELECT SudokuId, Score, PlayerId FROM dbo.Sudoku";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2288,7 +2194,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_SudokuId, string Original_Score) {
+        public virtual int Delete(int Original_SudokuId, string Original_Score, int Original_PlayerId) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_SudokuId));
             if ((Original_Score == null)) {
                 throw new global::System.ArgumentNullException("Original_Score");
@@ -2296,6 +2202,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             else {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_Score));
             }
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2316,13 +2223,14 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Score) {
+        public virtual int Insert(string Score, int PlayerId) {
             if ((Score == null)) {
                 throw new global::System.ArgumentNullException("Score");
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Score));
             }
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2343,21 +2251,23 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Score, int Original_SudokuId, string Original_Score, int SudokuId) {
+        public virtual int Update(string Score, int PlayerId, int Original_SudokuId, string Original_Score, int Original_PlayerId, int SudokuId) {
             if ((Score == null)) {
                 throw new global::System.ArgumentNullException("Score");
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Score));
             }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Original_SudokuId));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(PlayerId));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_SudokuId));
             if ((Original_Score == null)) {
                 throw new global::System.ArgumentNullException("Original_Score");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Original_Score));
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_Score));
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(SudokuId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_PlayerId));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(SudokuId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2378,8 +2288,8 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Score, int Original_SudokuId, string Original_Score) {
-            return this.Update(Score, Original_SudokuId, Original_Score, Original_SudokuId);
+        public virtual int Update(string Score, int PlayerId, int Original_SudokuId, string Original_Score, int Original_PlayerId) {
+            return this.Update(Score, PlayerId, Original_SudokuId, Original_Score, Original_PlayerId, Original_SudokuId);
         }
     }
     
@@ -2507,34 +2417,39 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             tableMapping.ColumnMappings.Add("TicTacToeId", "TicTacToeId");
             tableMapping.ColumnMappings.Add("Wins", "Wins");
             tableMapping.ColumnMappings.Add("Loses", "Loses");
+            tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[TicTacToe] WHERE (([TicTacToeId] = @Original_TicTacToeId) AND " +
-                "([Wins] = @Original_Wins) AND ([Loses] = @Original_Loses))";
+                "([Wins] = @Original_Wins) AND ([Loses] = @Original_Loses) AND ([PlayerId] = @Ori" +
+                "ginal_PlayerId))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Wins", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Wins", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Loses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Loses", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[TicTacToe] ([Wins], [Loses]) VALUES (@Wins, @Loses);\r\nSELECT T" +
-                "icTacToeId, Wins, Loses FROM TicTacToe WHERE (TicTacToeId = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[TicTacToe] ([Wins], [Loses], [PlayerId]) VALUES (@Wins, @Loses" +
+                ", @PlayerId);\r\nSELECT TicTacToeId, Wins, Loses, PlayerId FROM TicTacToe WHERE (T" +
+                "icTacToeId = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Wins", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Wins", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Loses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Loses", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[TicTacToe] SET [Wins] = @Wins, [Loses] = @Loses WHERE (([TicTacToeI" +
-                "d] = @Original_TicTacToeId) AND ([Wins] = @Original_Wins) AND ([Loses] = @Origin" +
-                "al_Loses));\r\nSELECT TicTacToeId, Wins, Loses FROM TicTacToe WHERE (TicTacToeId =" +
-                " @TicTacToeId)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[TicTacToe] SET [Wins] = @Wins, [Loses] = @Loses, [PlayerId] = @PlayerId WHERE (([TicTacToeId] = @Original_TicTacToeId) AND ([Wins] = @Original_Wins) AND ([Loses] = @Original_Loses) AND ([PlayerId] = @Original_PlayerId));
+SELECT TicTacToeId, Wins, Loses, PlayerId FROM TicTacToe WHERE (TicTacToeId = @TicTacToeId)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Wins", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Wins", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Loses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Loses", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TicTacToeId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Wins", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Wins", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Loses", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Loses", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TicTacToeId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "TicTacToeId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -2551,7 +2466,7 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT TicTacToeId, Wins, Loses FROM dbo.TicTacToe";
+            this._commandCollection[0].CommandText = "SELECT TicTacToeId, Wins, Loses, PlayerId FROM dbo.TicTacToe";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2612,10 +2527,11 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_TicTacToeId, int Original_Wins, int Original_Loses) {
+        public virtual int Delete(int Original_TicTacToeId, int Original_Wins, int Original_Loses, int Original_PlayerId) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_TicTacToeId));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Wins));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Loses));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2636,9 +2552,10 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Wins, int Loses) {
+        public virtual int Insert(int Wins, int Loses, int PlayerId) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Wins));
             this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Loses));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2659,13 +2576,15 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Wins, int Loses, int Original_TicTacToeId, int Original_Wins, int Original_Loses, int TicTacToeId) {
+        public virtual int Update(int Wins, int Loses, int PlayerId, int Original_TicTacToeId, int Original_Wins, int Original_Loses, int Original_PlayerId, int TicTacToeId) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Wins));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Loses));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_TicTacToeId));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_Wins));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Loses));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(TicTacToeId));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PlayerId));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_TicTacToeId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Wins));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Loses));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PlayerId));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(TicTacToeId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2686,8 +2605,8 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Wins, int Loses, int Original_TicTacToeId, int Original_Wins, int Original_Loses) {
-            return this.Update(Wins, Loses, Original_TicTacToeId, Original_Wins, Original_Loses, Original_TicTacToeId);
+        public virtual int Update(int Wins, int Loses, int PlayerId, int Original_TicTacToeId, int Original_Wins, int Original_Loses, int Original_PlayerId) {
+            return this.Update(Wins, Loses, PlayerId, Original_TicTacToeId, Original_Wins, Original_Loses, Original_PlayerId, Original_TicTacToeId);
         }
     }
     
@@ -2830,6 +2749,15 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateUpdatedRows(Game_App_DbDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._playerTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._playerTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._sudokuTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Sudoku.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -2848,15 +2776,6 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._playerTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._playerTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -2867,6 +2786,14 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateInsertedRows(Game_App_DbDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._playerTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._playerTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._sudokuTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Sudoku.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -2883,14 +2810,6 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._playerTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._playerTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -2901,14 +2820,6 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private int UpdateDeletedRows(Game_App_DbDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._playerTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._playerTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._ticTacToeTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.TicTacToe.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -2922,6 +2833,14 @@ SELECT PlayerId, UserName, Email, Password, TicTacToeId, SudokuId FROM Player WH
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._sudokuTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._playerTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Player.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._playerTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }

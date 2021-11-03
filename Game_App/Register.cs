@@ -12,7 +12,7 @@ namespace Game_App
 {
     public partial class Register : Form
     {
-        Game_App_DBEntities db = new Game_App_DBEntities();
+        Game_App_DBEntities1 db = new Game_App_DBEntities1();
 
         public Register()
         {
