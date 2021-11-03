@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "7152f265-9905-498a-aa82-c7d892f907ca": {
+      "ProjectGuid": "7152f265-9905-498a-aa82-c7d892f907ca",
+      "DisplayName": "Game_App",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

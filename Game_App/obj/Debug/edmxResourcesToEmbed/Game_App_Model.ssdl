@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Game_App_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Player">
+    <Key>
+      <PropertyRef Name="PlayerId" />
+    </Key>
+    <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TicTacToeId" Type="int" />
+    <Property Name="SudokuId" Type="int" />
+  </EntityType>
+  <EntityType Name="Sudoku">
+    <Key>
+      <PropertyRef Name="SudokuId" />
+    </Key>
+    <Property Name="SudokuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Score" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TicTacToe">
+    <Key>
+      <PropertyRef Name="TicTacToeId" />
+    </Key>
+    <Property Name="TicTacToeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Wins" Type="int" Nullable="false" />
+    <Property Name="Loses" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Sudoku">
+    <End Role="Sudoku" Type="Self.Sudoku" Multiplicity="0..1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sudoku">
+        <PropertyRef Name="SudokuId" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="SudokuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TicTacToe">
+    <End Role="TicTacToe" Type="Self.TicTacToe" Multiplicity="0..1" />
+    <End Role="Player" Type="Self.Player" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TicTacToe">
+        <PropertyRef Name="TicTacToeId" />
+      </Principal>
+      <Dependent Role="Player">
+        <PropertyRef Name="TicTacToeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Game_App_DBModelStoreContainer">
+    <EntitySet Name="Player" EntityType="Self.Player" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Sudoku" EntityType="Self.Sudoku" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TicTacToe" EntityType="Self.TicTacToe" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Sudoku" Association="Self.FK_Sudoku">
+      <End Role="Sudoku" EntitySet="Sudoku" />
+      <End Role="Player" EntitySet="Player" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TicTacToe" Association="Self.FK_TicTacToe">
+      <End Role="TicTacToe" EntitySet="TicTacToe" />
+      <End Role="Player" EntitySet="Player" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Game_App_DBModelStoreContainer" CdmEntityContainer="Game_App_DBEntities">
+    <EntitySetMapping Name="Player">
+      <EntityTypeMapping TypeName="Game_App_DBModel.Player">
+        <MappingFragment StoreEntitySet="Player">
+          <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="TicTacToeId" ColumnName="TicTacToeId" />
+          <ScalarProperty Name="SudokuId" ColumnName="SudokuId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sudoku">
+      <EntityTypeMapping TypeName="Game_App_DBModel.Sudoku">
+        <MappingFragment StoreEntitySet="Sudoku">
+          <ScalarProperty Name="SudokuId" ColumnName="SudokuId" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TicTacToe">
+      <EntityTypeMapping TypeName="Game_App_DBModel.TicTacToe">
+        <MappingFragment StoreEntitySet="TicTacToe">
+          <ScalarProperty Name="TicTacToeId" ColumnName="TicTacToeId" />
+          <ScalarProperty Name="Wins" ColumnName="Wins" />
+          <ScalarProperty Name="Loses" ColumnName="Loses" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
