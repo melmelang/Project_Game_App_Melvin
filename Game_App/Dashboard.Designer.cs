@@ -28,13 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.dashboardMenu = new System.Windows.Forms.MenuStrip();
             this.PlayerNameLabel = new System.Windows.Forms.ToolStripMenuItem();
-            this.SudokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tikTakToeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.disconnectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.SudokuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tikTakToeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.game_App_DbDataSet = new Game_App.Game_App_DbDataSet();
+            this.playerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.playerTableAdapter = new Game_App.Game_App_DbDataSetTableAdapters.PlayerTableAdapter();
+            this.tableAdapterManager = new Game_App.Game_App_DbDataSetTableAdapters.TableAdapterManager();
             this.dashboardMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.game_App_DbDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dashboardMenu
@@ -59,6 +66,20 @@
             this.PlayerNameLabel.Size = new System.Drawing.Size(63, 24);
             this.PlayerNameLabel.Text = "Player";
             // 
+            // disconnectToolStripMenuItem
+            // 
+            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
+            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.disconnectToolStripMenuItem.Text = "Disconnect";
+            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
+            // 
+            // closeToolStripMenuItem
+            // 
+            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(165, 26);
+            this.closeToolStripMenuItem.Text = "Close";
+            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            // 
             // SudokuToolStripMenuItem
             // 
             this.SudokuToolStripMenuItem.Name = "SudokuToolStripMenuItem";
@@ -72,19 +93,27 @@
             this.tikTakToeToolStripMenuItem.Text = "Tik-Tak-Toe";
             this.tikTakToeToolStripMenuItem.Click += new System.EventHandler(this.tikTakToeToolStripMenuItem_Click);
             // 
-            // disconnectToolStripMenuItem
+            // game_App_DbDataSet
             // 
-            this.disconnectToolStripMenuItem.Name = "disconnectToolStripMenuItem";
-            this.disconnectToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.disconnectToolStripMenuItem.Text = "Disconnect";
-            this.disconnectToolStripMenuItem.Click += new System.EventHandler(this.disconnectToolStripMenuItem_Click);
+            this.game_App_DbDataSet.DataSetName = "Game_App_DbDataSet";
+            this.game_App_DbDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // closeToolStripMenuItem
+            // playerBindingSource
             // 
-            this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.closeToolStripMenuItem.Text = "Close";
-            this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
+            this.playerBindingSource.DataMember = "Player";
+            this.playerBindingSource.DataSource = this.game_App_DbDataSet;
+            // 
+            // playerTableAdapter
+            // 
+            this.playerTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.PlayerTableAdapter = this.playerTableAdapter;
+            this.tableAdapterManager.SudokuTableAdapter = null;
+            this.tableAdapterManager.TicTacToeTableAdapter = null;
+            this.tableAdapterManager.UpdateOrder = Game_App.Game_App_DbDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
             // Dashboard
             // 
@@ -97,6 +126,8 @@
             this.Load += new System.EventHandler(this.Dashboard_Load);
             this.dashboardMenu.ResumeLayout(false);
             this.dashboardMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.game_App_DbDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.playerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -110,6 +141,10 @@
         private System.Windows.Forms.ToolStripMenuItem tikTakToeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem disconnectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
+        private Game_App_DbDataSet game_App_DbDataSet;
+        private System.Windows.Forms.BindingSource playerBindingSource;
+        private Game_App_DbDataSetTableAdapters.PlayerTableAdapter playerTableAdapter;
+        private Game_App_DbDataSetTableAdapters.TableAdapterManager tableAdapterManager;
     }
 }
 

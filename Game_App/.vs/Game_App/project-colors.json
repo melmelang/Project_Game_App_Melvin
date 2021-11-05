@@ -5,6 +5,11 @@
       "ProjectGuid": "7152f265-9905-498a-aa82-c7d892f907ca",
       "DisplayName": "Game_App",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

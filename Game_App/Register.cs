@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -29,17 +30,17 @@ namespace Game_App
 
             if (!(string.IsNullOrEmpty(UsernameBox.Text) || string.IsNullOrEmpty(EmailBox.Text) || string.IsNullOrEmpty(PasswordBox.Text)))
             {
-                var UserData = db.Player;
+                var UserData = db.Player.Where(x => x.UserName == username || x.Email == email);
                 foreach (Player p in UserData)
                 {
                     if (p.UserName == username)
                     {
-                        MessageBox.Show("Username already exist. Take another");
+                        MessageBox.Show("Username already exist. Take another!!!");
                         doesntExist = false;
                     }
                     if (p.Email == email)
                     {
-                        MessageBox.Show("Email already exist. Take another");
+                        MessageBox.Show("Email already exist. Take another!!!");
                         doesntExist = false;
                     }
                 }

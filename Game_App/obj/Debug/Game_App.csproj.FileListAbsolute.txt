@@ -18,3 +18,4 @@ C:\Users\angeli melvin\Documents\GitHub\Project_Game_App_Melvin\Game_App\obj\Deb
 C:\Users\angeli melvin\Documents\GitHub\Project_Game_App_Melvin\Game_App\bin\Debug\Game_App_DB.mdf
 C:\Users\angeli melvin\Documents\GitHub\Project_Game_App_Melvin\Game_App\bin\Debug\Game_App_DB_log.ldf
 C:\Users\angeli melvin\Documents\GitHub\Project_Game_App_Melvin\Game_App\obj\Debug\Game_App.TicTacToeForm.resources
+C:\Users\angeli melvin\Documents\GitHub\Project_Game_App_Melvin\Game_App\obj\Debug\Game_App.SudokuForm.resources

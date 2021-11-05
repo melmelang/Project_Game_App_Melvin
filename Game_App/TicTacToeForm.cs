@@ -62,8 +62,19 @@ namespace Game_App
                 string.IsNullOrEmpty(TIC9.Text))))
             {
                 MessageBox.Show("you win");
+                bool exist = false;
 
+                var wins = db.Player.Where(p => p.UserName == Dashboard.playerName);
+                TicTacToe ticTacToe = new TicTacToe();
 
+                foreach (var w in wins)
+                {
+                    ticTacToe.Wins += 1;
+                    ticTacToe.PlayerId = w.PlayerId;
+                }
+
+                db.TicTacToe.Add(ticTacToe);
+                db.SaveChanges();
 
                 RetryGame();
             }

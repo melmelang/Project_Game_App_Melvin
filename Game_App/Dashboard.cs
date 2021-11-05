@@ -22,6 +22,8 @@ namespace Game_App
 
         private void Dashboard_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'game_App_DbDataSet.Player' table. You can move, or remove it, as needed.
+            this.playerTableAdapter.Fill(this.game_App_DbDataSet.Player);
             Login login = new Login();
             login.ShowDialog();
             playerName = Login.ReturnPlayerName;
@@ -54,6 +56,14 @@ namespace Game_App
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void playerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.playerBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.game_App_DbDataSet);
+
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Game_App
     {
         Game_App_DBEntities1 db = new Game_App_DBEntities1();
         public static string ReturnPlayerName { get; set; }
+        public static int ReturnPlayerId { get; set; }
         public static bool ReturnIsConnected { get; set; }
 
         public Login()
@@ -54,7 +55,7 @@ namespace Game_App
                     Close();
                 } else
                 {
-                    MessageBox.Show("Try again");
+                    MessageBox.Show("Try again!!!!!!");
                 }
 
             }
