@@ -58,8 +58,6 @@ namespace Game_App
 
                     db.Player.Add(player);
                     db.SaveChanges();
-
-                    MessageBox.Show("doesntExist");
                 }
 
             }

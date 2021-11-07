@@ -15,6 +15,9 @@ namespace Game_App
         Game_App_DBEntities1 db = new Game_App_DBEntities1();
         public List<Button> buttonList = new List<Button>();
         Random rnd = new Random();
+        int playerid;
+        public static int ReturnPlayerWins { get; set; }
+        public static int ReturnPlayerLoses { get; set; }
 
         public TicTacToeForm()
         {
@@ -23,6 +26,34 @@ namespace Game_App
 
         private void TicTacToeForm_Load(object sender, EventArgs e)
         {
+            var verifyIfAlreadyHaveScore = db.TicTacToe;
+            bool playerExist = false;
+            var pID = db.Player.Where(p => p.UserName == Dashboard.playerName);
+
+            foreach (var i in pID)
+            {
+                playerid = i.PlayerId;
+            }
+
+            foreach (var vs in verifyIfAlreadyHaveScore)
+            {
+                if (vs.PlayerId == playerid)
+                {
+                    playerExist = true;
+                }
+            }
+
+            if (playerExist == false)
+            {
+                
+                TicTacToe ticTacToe = new TicTacToe();
+
+                ticTacToe.PlayerId = playerid;
+
+                db.TicTacToe.Add(ticTacToe);
+                db.SaveChanges();
+            }
+
             buttonList.Add(TIC1);
             buttonList.Add(TIC2);
             buttonList.Add(TIC3);
@@ -32,6 +63,20 @@ namespace Game_App
             buttonList.Add(TIC7);
             buttonList.Add(TIC8);
             buttonList.Add(TIC9);
+            RefreshScore();
+        }
+
+        public void RefreshScore()
+        {
+            var scores = db.TicTacToe.Where(t => t.PlayerId == playerid);
+
+            foreach (var s in scores)
+            {
+                Wins.Text = "Wins: " + s.Wins;
+                Loses.Text = "Loses: " + s.Loses;
+                ReturnPlayerWins = s.Wins;
+                ReturnPlayerLoses = s.Loses;
+            }
         }
 
         public void Win()
@@ -64,16 +109,13 @@ namespace Game_App
                 MessageBox.Show("you win");
                 bool exist = false;
 
-                var wins = db.Player.Where(p => p.UserName == Dashboard.playerName);
-                TicTacToe ticTacToe = new TicTacToe();
+                var win = db.TicTacToe.Where(t => t.PlayerId == playerid);
 
-                foreach (var w in wins)
+                foreach (var w in win)
                 {
-                    ticTacToe.Wins += 1;
-                    ticTacToe.PlayerId = w.PlayerId;
+                    w.Wins += 1;
                 }
 
-                db.TicTacToe.Add(ticTacToe);
                 db.SaveChanges();
 
                 RetryGame();
@@ -108,6 +150,16 @@ namespace Game_App
                 string.IsNullOrEmpty(TIC9.Text))))
             {
                 MessageBox.Show("you lose");
+
+                var lose = db.TicTacToe.Where(t => t.PlayerId == playerid);
+
+                foreach (var l in lose)
+                {
+                    l.Loses += 1;
+                }
+
+                db.SaveChanges();
+
                 RetryGame();
             }
         }
@@ -142,10 +194,11 @@ namespace Game_App
             buttonList.Add(TIC4);
             buttonList.Add(TIC5);
             buttonList.Add(TIC6);
-            buttonList.Add(TIC6);
             buttonList.Add(TIC7);
             buttonList.Add(TIC8);
             buttonList.Add(TIC9);
+
+            RefreshScore();
         }
 
         public void Bot()

@@ -39,6 +39,8 @@
             this.TIC2 = new System.Windows.Forms.Button();
             this.TIC1 = new System.Windows.Forms.Button();
             this.Leave = new System.Windows.Forms.Button();
+            this.Wins = new System.Windows.Forms.Label();
+            this.Loses = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Retry
@@ -151,11 +153,31 @@
             this.Leave.UseVisualStyleBackColor = true;
             this.Leave.Click += new System.EventHandler(this.Leave_Click);
             // 
+            // Wins
+            // 
+            this.Wins.AutoSize = true;
+            this.Wins.Location = new System.Drawing.Point(214, 28);
+            this.Wins.Name = "Wins";
+            this.Wins.Size = new System.Drawing.Size(43, 16);
+            this.Wins.TabIndex = 22;
+            this.Wins.Text = "Wins: ";
+            // 
+            // Loses
+            // 
+            this.Loses.AutoSize = true;
+            this.Loses.Location = new System.Drawing.Point(320, 28);
+            this.Loses.Name = "Loses";
+            this.Loses.Size = new System.Drawing.Size(47, 16);
+            this.Loses.TabIndex = 23;
+            this.Loses.Text = "Loses:";
+            // 
             // TicTacToeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(598, 450);
+            this.Controls.Add(this.Loses);
+            this.Controls.Add(this.Wins);
             this.Controls.Add(this.Retry);
             this.Controls.Add(this.TIC9);
             this.Controls.Add(this.TIC8);
@@ -171,6 +193,7 @@
             this.Text = "TicTacToe";
             this.Load += new System.EventHandler(this.TicTacToeForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -187,5 +210,7 @@
         private System.Windows.Forms.Button TIC2;
         private System.Windows.Forms.Button TIC1;
         private System.Windows.Forms.Button Leave;
+        private System.Windows.Forms.Label Wins;
+        private System.Windows.Forms.Label Loses;
     }
 }

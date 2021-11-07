@@ -19,6 +19,17 @@ namespace Game_App
             InitializeComponent();
         }
 
+        private bool IsEveritingADigit(String text)
+        {
+            foreach (char c in text)
+            {
+                if (!(char.IsDigit(c)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         private void SudokuForm_Load(object sender, EventArgs e)
         {
             //x1 num
@@ -205,7 +216,7 @@ namespace Game_App
 
         private void Sudoku_TextChanged(object sender, EventArgs e)
         {
-
+            MessageBox.Show(sender.ToString());
         }
     }
 }
