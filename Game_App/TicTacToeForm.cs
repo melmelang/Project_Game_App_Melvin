@@ -12,7 +12,7 @@ namespace Game_App
 {
     public partial class TicTacToeForm : Form
     {
-        Game_App_DBEntities1 db = new Game_App_DBEntities1();
+        Game_App_DbEntities db = new Game_App_DbEntities();
         public List<Button> buttonList = new List<Button>();
         Random rnd = new Random();
         int playerid;
@@ -203,10 +203,10 @@ namespace Game_App
 
         public void Bot()
         {
-            int blistIndex = rnd.Next(buttonList.Count);
-            Button chosenButton = buttonList[blistIndex];
             if (buttonList.Count > 0)
             {
+                int blistIndex = rnd.Next(buttonList.Count - 1);
+                Button chosenButton = buttonList[blistIndex];
                 chosenButton.Text = "O";
                 chosenButton.Enabled = false;
                 buttonList.Remove(chosenButton);

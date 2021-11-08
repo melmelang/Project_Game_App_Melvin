@@ -677,6 +677,8 @@ namespace Game_App {
             
             private global::System.Data.DataColumn columnScore;
             
+            private global::System.Data.DataColumn columnDifficulty;
+            
             private global::System.Data.DataColumn columnPlayerId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -730,6 +732,14 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public global::System.Data.DataColumn DifficultyColumn {
+                get {
+                    return this.columnDifficulty;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
             public global::System.Data.DataColumn PlayerIdColumn {
                 get {
                     return this.columnPlayerId;
@@ -773,14 +783,15 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public SudokuRow AddSudokuRow(string Score, PlayerRow parentPlayerRowByPlayerSudoku) {
+            public SudokuRow AddSudokuRow(int Score, int Difficulty, PlayerRow parentPlayerRowByPlayerSudoku) {
                 SudokuRow rowSudokuRow = ((SudokuRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Score,
+                        Difficulty,
                         null};
                 if ((parentPlayerRowByPlayerSudoku != null)) {
-                    columnValuesArray[2] = parentPlayerRowByPlayerSudoku[0];
+                    columnValuesArray[3] = parentPlayerRowByPlayerSudoku[0];
                 }
                 rowSudokuRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSudokuRow);
@@ -813,6 +824,7 @@ namespace Game_App {
             internal void InitVars() {
                 this.columnSudokuId = base.Columns["SudokuId"];
                 this.columnScore = base.Columns["Score"];
+                this.columnDifficulty = base.Columns["Difficulty"];
                 this.columnPlayerId = base.Columns["PlayerId"];
             }
             
@@ -821,8 +833,10 @@ namespace Game_App {
             private void InitClass() {
                 this.columnSudokuId = new global::System.Data.DataColumn("SudokuId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSudokuId);
-                this.columnScore = new global::System.Data.DataColumn("Score", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnScore = new global::System.Data.DataColumn("Score", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnScore);
+                this.columnDifficulty = new global::System.Data.DataColumn("Difficulty", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDifficulty);
                 this.columnPlayerId = new global::System.Data.DataColumn("PlayerId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPlayerId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
@@ -834,7 +848,7 @@ namespace Game_App {
                 this.columnSudokuId.ReadOnly = true;
                 this.columnSudokuId.Unique = true;
                 this.columnScore.AllowDBNull = false;
-                this.columnScore.MaxLength = 50;
+                this.columnDifficulty.AllowDBNull = false;
                 this.columnPlayerId.AllowDBNull = false;
             }
             
@@ -1380,12 +1394,23 @@ namespace Game_App {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
-            public string Score {
+            public int Score {
                 get {
-                    return ((string)(this[this.tableSudoku.ScoreColumn]));
+                    return ((int)(this[this.tableSudoku.ScoreColumn]));
                 }
                 set {
                     this[this.tableSudoku.ScoreColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+            public int Difficulty {
+                get {
+                    return ((int)(this[this.tableSudoku.DifficultyColumn]));
+                }
+                set {
+                    this[this.tableSudoku.DifficultyColumn] = value;
                 }
             }
             
@@ -2088,34 +2113,39 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
             tableMapping.DataSetTable = "Sudoku";
             tableMapping.ColumnMappings.Add("SudokuId", "SudokuId");
             tableMapping.ColumnMappings.Add("Score", "Score");
+            tableMapping.ColumnMappings.Add("Difficulty", "Difficulty");
             tableMapping.ColumnMappings.Add("PlayerId", "PlayerId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Sudoku] WHERE (([SudokuId] = @Original_SudokuId) AND ([Score] " +
-                "= @Original_Score) AND ([PlayerId] = @Original_PlayerId))";
+                "= @Original_Score) AND ([Difficulty] = @Original_Difficulty) AND ([PlayerId] = @" +
+                "Original_PlayerId))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Difficulty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Difficulty", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Sudoku] ([Score], [PlayerId]) VALUES (@Score, @PlayerId);\r\nSEL" +
-                "ECT SudokuId, Score, PlayerId FROM Sudoku WHERE (SudokuId = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Sudoku] ([Score], [Difficulty], [PlayerId]) VALUES (@Score, @D" +
+                "ifficulty, @PlayerId);\r\nSELECT SudokuId, Score, Difficulty, PlayerId FROM Sudoku" +
+                " WHERE (SudokuId = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Difficulty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Difficulty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE [dbo].[Sudoku] SET [Score] = @Score, [PlayerId] = @PlayerId WHERE (([Sudok" +
-                "uId] = @Original_SudokuId) AND ([Score] = @Original_Score) AND ([PlayerId] = @Or" +
-                "iginal_PlayerId));\r\nSELECT SudokuId, Score, PlayerId FROM Sudoku WHERE (SudokuId" +
-                " = @SudokuId)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Sudoku] SET [Score] = @Score, [Difficulty] = @Difficulty, [PlayerId] = @PlayerId WHERE (([SudokuId] = @Original_SudokuId) AND ([Score] = @Original_Score) AND ([Difficulty] = @Original_Difficulty) AND ([PlayerId] = @Original_PlayerId));
+SELECT SudokuId, Score, Difficulty, PlayerId FROM Sudoku WHERE (SudokuId = @SudokuId)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Score", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Difficulty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Difficulty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_SudokuId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.VarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Score", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Score", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Difficulty", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Difficulty", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PlayerId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PlayerId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@SudokuId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "SudokuId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
@@ -2133,7 +2163,7 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT SudokuId, Score, PlayerId FROM dbo.Sudoku";
+            this._commandCollection[0].CommandText = "SELECT SudokuId, Score, Difficulty, PlayerId FROM dbo.Sudoku";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -2194,15 +2224,11 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_SudokuId, string Original_Score, int Original_PlayerId) {
+        public virtual int Delete(int Original_SudokuId, int Original_Score, int Original_Difficulty, int Original_PlayerId) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_SudokuId));
-            if ((Original_Score == null)) {
-                throw new global::System.ArgumentNullException("Original_Score");
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((string)(Original_Score));
-            }
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_PlayerId));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((int)(Original_Score));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((int)(Original_Difficulty));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((int)(Original_PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2223,14 +2249,10 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Score, int PlayerId) {
-            if ((Score == null)) {
-                throw new global::System.ArgumentNullException("Score");
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Score));
-            }
-            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(PlayerId));
+        public virtual int Insert(int Score, int Difficulty, int PlayerId) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Score));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((int)(Difficulty));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((int)(PlayerId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2251,23 +2273,15 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Score, int PlayerId, int Original_SudokuId, string Original_Score, int Original_PlayerId, int SudokuId) {
-            if ((Score == null)) {
-                throw new global::System.ArgumentNullException("Score");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Score));
-            }
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(PlayerId));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(Original_SudokuId));
-            if ((Original_Score == null)) {
-                throw new global::System.ArgumentNullException("Original_Score");
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Original_Score));
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_PlayerId));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(SudokuId));
+        public virtual int Update(int Score, int Difficulty, int PlayerId, int Original_SudokuId, int Original_Score, int Original_Difficulty, int Original_PlayerId, int SudokuId) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Score));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((int)(Difficulty));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((int)(PlayerId));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_SudokuId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Score));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Difficulty));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_PlayerId));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(SudokuId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2288,8 +2302,8 @@ SELECT PlayerId, UserName, Email, Password FROM Player WHERE (PlayerId = @Player
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Score, int PlayerId, int Original_SudokuId, string Original_Score, int Original_PlayerId) {
-            return this.Update(Score, PlayerId, Original_SudokuId, Original_Score, Original_PlayerId, Original_SudokuId);
+        public virtual int Update(int Score, int Difficulty, int PlayerId, int Original_SudokuId, int Original_Score, int Original_Difficulty, int Original_PlayerId) {
+            return this.Update(Score, Difficulty, PlayerId, Original_SudokuId, Original_Score, Original_Difficulty, Original_PlayerId, Original_SudokuId);
         }
     }
     

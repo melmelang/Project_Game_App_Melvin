@@ -12,10 +12,9 @@ namespace Game_App
 {
     public partial class Dashboard : Form
     {
-        Game_App_DBEntities1 db = new Game_App_DBEntities1();
+        Game_App_DbEntities db = new Game_App_DbEntities();
         public static bool isConnected = false;
         public static string playerName;
-        public static int playerId { get; set; }
         int playerid;
 
         public Dashboard()
@@ -40,6 +39,40 @@ namespace Game_App
                 Wins.Text = "Wins: " + TicTacToeForm.ReturnPlayerWins;
                 Loses.Text = "Loses: " + TicTacToeForm.ReturnPlayerLoses;
             }
+
+            var scoresSudoku = db.Sudoku.Where(s => s.PlayerId == playerid).OrderBy(s => s.Score);
+            SudokuScoreList.Items.Clear();
+            SudokuScoreList.Items.Add("----------Easy----------");
+            int counter = 0;
+            foreach (var s in scoresSudoku)
+            {
+                if (s.Difficulty == 1)
+                {
+                    counter++;
+                    SudokuScoreList.Items.Add("#" + counter + " - Score: " + s.Score);
+                }
+            }
+            SudokuScoreList.Items.Add("----------Normal----------");
+            counter = 0;
+            foreach (var s in scoresSudoku)
+            {
+                if (s.Difficulty == 2)
+                {
+                    counter++;
+                    SudokuScoreList.Items.Add("#" + counter + " - Score: " + s.Score);
+                }
+            }
+            SudokuScoreList.Items.Add("----------Hard----------");
+            counter = 0;
+            foreach (var s in scoresSudoku)
+            {
+                if (s.Difficulty == 3)
+                {
+                    counter++;
+                    SudokuScoreList.Items.Add("#" + counter + " - Score: " + s.Score);
+                }
+            }
+
         }
 
         private void Dashboard_Load(object sender, EventArgs e)
@@ -53,7 +86,7 @@ namespace Game_App
 
             PlayerNameLabel.Text = playerName;
 
-            var pID = db.Player.Where(p => p.UserName == Dashboard.playerName);
+            var pID = db.Player.Where(p => p.UserName == playerName);
 
             foreach (var i in pID)
             {
@@ -77,7 +110,7 @@ namespace Game_App
         {
             SudokuForm sudoku = new SudokuForm();
             sudoku.ShowDialog();
-            RefreshScore(false);
+            RefreshScore(true);
         }
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)
@@ -90,14 +123,14 @@ namespace Game_App
 
             PlayerNameLabel.Text = playerName;
 
-            var playerID = db.Player;
+            var pID = db.Player.Where(p => p.UserName == playerName);
 
-            foreach (var pi in playerID)
+            foreach (var i in pID)
             {
-                playerId = pi.PlayerId;
+                playerid = i.PlayerId;
             }
 
-            RefreshScore(false);
+            RefreshScore(true);
 
             if (Login.ReturnIsConnected == false)
                 Close();
@@ -118,7 +151,7 @@ namespace Game_App
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RefreshScore(false);
+            RefreshScore(true);
         }
     }
 }

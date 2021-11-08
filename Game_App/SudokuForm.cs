@@ -12,16 +12,34 @@ namespace Game_App
 {
     public partial class SudokuForm : Form
     {
+        Game_App_DbEntities db = new Game_App_DbEntities();
+        public delegate DateTime Score(DateTime time);
+
+        public event Score T;
+
+        public DateTime resultTime;
+
         List<int> numbers = new List<int>();
         List<TextBox> text = new List<TextBox>();
+        Random rnd = new Random();
+        int playerid;
+        int ExtraScore;
+        public static int ReturnPlayerScore { get; set; }
+
         public SudokuForm()
         {
             InitializeComponent();
+            T += new Score(this.CreateScoreEvent);
         }
 
-        private bool IsEveritingADigit(String text)
+        public DateTime CreateScoreEvent(DateTime GetTime)
         {
-            foreach (char c in text)
+            return GetTime;
+        }
+
+        private bool IsEveritingADigit(String t)
+        {
+            foreach (char c in t)
             {
                 if (!(char.IsDigit(c)))
                 {
@@ -30,7 +48,8 @@ namespace Game_App
             }
             return true;
         }
-        private void SudokuForm_Load(object sender, EventArgs e)
+
+        public void SetUpLists()
         {
             //x1 num
             numbers.Add(5);
@@ -214,9 +233,196 @@ namespace Game_App
             text.Add(X9Y9);
         }
 
-        private void Sudoku_TextChanged(object sender, EventArgs e)
+        public void ShowNumbers(string difficulty)
         {
-            MessageBox.Show(sender.ToString());
+            foreach (var t in text)
+            {
+                t.Enabled = true;
+                t.Text = null;
+                t.BackColor = Color.White;
+            }
+
+            if (difficulty == "Easy")
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    int listIndex = 0;
+                    while (text[listIndex].Text != "")
+                    {
+                        listIndex = rnd.Next(numbers.Count);
+                    }
+                    text[listIndex].Text = numbers[listIndex].ToString();
+                    text[listIndex].Enabled = false;
+                }
+            }
+            else if (difficulty == "Normal")
+            {
+                for (int i = 0; i < 35; i++)
+                {
+                    int listIndex = 0;
+                    while (text[listIndex].Text != "")
+                    {
+                        listIndex = rnd.Next(numbers.Count);
+                    }
+                    text[listIndex].Text = numbers[listIndex].ToString();
+                    text[listIndex].Enabled = false;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 30; i++)
+                {
+                    int listIndex = 0;
+                    while (text[listIndex].Text != "")
+                    {
+                        listIndex = rnd.Next(numbers.Count);
+                    }
+                    text[listIndex].Text = numbers[listIndex].ToString();
+                    text[listIndex].Enabled = false;
+                }
+            }
+        }
+
+        public void Win()
+        {
+            bool win = true;
+            foreach (TextBox t in text)
+            {
+                if (t.Enabled == true)
+                {
+                    win = false;
+                }
+            }
+            if (win)
+            {
+                TimeSpan now = DateTime.Now - resultTime;
+                ReturnPlayerScore = (int)now.TotalMilliseconds + ExtraScore;
+
+                Sudoku sudoku = new Sudoku();
+                sudoku.PlayerId = playerid;
+                sudoku.Score = ReturnPlayerScore;
+                if (Difficulty.Text == "Easy")
+                {
+                    sudoku.Difficulty = 1;
+                }
+                else if (Difficulty.Text == "Normal")
+                {
+                    sudoku.Difficulty = 2;
+                }
+                else
+                {
+                    sudoku.Difficulty = 3;
+                }
+
+                db.Sudoku.Add(sudoku);
+                db.SaveChanges();
+                RefreshScore();
+                Hint.Enabled = false;
+
+                MessageBox.Show("You win - " + ReturnPlayerScore);
+            }
+        }
+
+        public void RefreshScore()
+        {
+            var scoresSudoku = db.Sudoku.Where(s => s.PlayerId == playerid).OrderByDescending(s => s.Score);
+            foreach (var s in scoresSudoku)
+            {
+                if (s.Difficulty == 1)
+                {
+                    EasyLabel.Text = s.Score.ToString();
+                }
+                else if (s.Difficulty == 2)
+                {
+                    NormalLabel.Text = s.Score.ToString();
+                }
+                else
+                {
+                    HardLabel.Text = s.Score.ToString();
+                }
+            }
+        }
+
+        private void SudokuForm_Load(object sender, EventArgs e)
+        {
+            SetUpLists();
+            var pID = db.Player.Where(p => p.UserName == Dashboard.playerName);
+
+            foreach (var i in pID)
+            {
+                playerid = i.PlayerId;
+            }
+            RefreshScore();
+        }
+
+        private void Generate_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(Difficulty.Text))
+            {
+                MessageBox.Show("Chose a difficulty");
+            }
+            else
+            {
+                ShowNumbers(Difficulty.Text);
+                SudokuForm Score1 = new SudokuForm();
+                DateTime now = DateTime.Now;
+                resultTime = Score1.T(now);
+                Hint.Enabled = true;
+            }
+        }
+
+        private void Leave_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void PressKey(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            int indexOfNumber = text.IndexOf(textBox);
+            int realNumber = numbers[indexOfNumber];
+
+            string numberSting = (string)textBox.Text;
+
+            if (IsEveritingADigit(numberSting) && !string.IsNullOrEmpty(numberSting))
+            {
+                int numberInt = int.Parse(numberSting);
+
+                if (realNumber == numberInt)
+                {
+                    textBox.BackColor = Color.Green;
+                    textBox.Enabled = false;
+                    Win();
+                }
+                else
+                {
+                    ExtraScore += 100;
+                    textBox.BackColor = Color.Red;
+                    textBox.Text = "";
+                }
+            }
+            else
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void Hint_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                int listIndex = 0;
+                while (text[listIndex].Text != "")
+                {
+                    listIndex = rnd.Next(numbers.Count);
+                }
+                text[listIndex].Text = numbers[listIndex].ToString();
+                text[listIndex].BackColor = Color.Black;
+                text[listIndex].ForeColor = Color.White;
+                text[listIndex].Enabled = false;
+            }
+            ExtraScore += 5000;
+            Win();
         }
     }
 }

@@ -68,20 +68,20 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Game_App_DbDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Game_App_Db_Model.Context.cs">
+    <Compile Include="Game_App_DBModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Game_App_Db_Model.Context.tt</DependentUpon>
+      <DependentUpon>Game_App_DBModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Game_App_Db_Model.cs">
+    <Compile Include="Game_App_DBModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Game_App_Db_Model.tt</DependentUpon>
+      <DependentUpon>Game_App_DBModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Game_App_Db_Model.Designer.cs">
+    <Compile Include="Game_App_DBModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Game_App_Db_Model.edmx</DependentUpon>
+      <DependentUpon>Game_App_DBModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -90,7 +90,7 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Player.cs">
-      <DependentUpon>Game_App_Db_Model.tt</DependentUpon>
+      <DependentUpon>Game_App_DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -101,7 +101,7 @@
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
     <Compile Include="Sudoku.cs">
-      <DependentUpon>Game_App_Db_Model.tt</DependentUpon>
+      <DependentUpon>Game_App_DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SudokuForm.cs">
       <SubType>Form</SubType>
@@ -110,7 +110,7 @@
       <DependentUpon>SudokuForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TicTacToe.cs">
-      <DependentUpon>Game_App_Db_Model.tt</DependentUpon>
+      <DependentUpon>Game_App_DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TicTacToeForm.cs">
       <SubType>Form</SubType>
@@ -153,12 +153,12 @@
     <None Include="Game_App_DbDataSet.xss">
       <DependentUpon>Game_App_DbDataSet.xsd</DependentUpon>
     </None>
-    <EntityDeploy Include="Game_App_Db_Model.edmx">
+    <EntityDeploy Include="Game_App_DBModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Game_App_Db_Model.Designer.cs</LastGenOutput>
+      <LastGenOutput>Game_App_DBModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Game_App_Db_Model.edmx.diagram">
-      <DependentUpon>Game_App_Db_Model.edmx</DependentUpon>
+    <None Include="Game_App_DBModel.edmx.diagram">
+      <DependentUpon>Game_App_DBModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -181,18 +181,18 @@
     <Content Include="Game_App_DB.mdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Game_App_DBModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Game_App_DBModel.edmx</DependentUpon>
+      <LastGenOutput>Game_App_DBModel.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Game_App_DBModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Game_App_DBModel.edmx</DependentUpon>
+      <LastGenOutput>Game_App_DBModel.cs</LastGenOutput>
+    </Content>
     <Content Include="Game_App_DB_log.ldf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Game_App_Db_Model.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Game_App_Db_Model.edmx</DependentUpon>
-      <LastGenOutput>Game_App_Db_Model.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Game_App_Db_Model.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Game_App_Db_Model.edmx</DependentUpon>
-      <LastGenOutput>Game_App_Db_Model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

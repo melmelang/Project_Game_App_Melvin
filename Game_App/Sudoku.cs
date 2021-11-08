@@ -15,7 +15,8 @@ namespace Game_App
     public partial class Sudoku
     {
         public int SudokuId { get; set; }
-        public string Score { get; set; }
+        public int Score { get; set; }
+        public int Difficulty { get; set; }
         public int PlayerId { get; set; }
     
         public virtual Player Player { get; set; }

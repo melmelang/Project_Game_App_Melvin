@@ -12,7 +12,7 @@ namespace Game_App
 {
     public partial class Login : Form
     {
-        Game_App_DBEntities1 db = new Game_App_DBEntities1();
+        Game_App_DbEntities db = new Game_App_DbEntities();
         public static string ReturnPlayerName { get; set; }
         public static int ReturnPlayerId { get; set; }
         public static bool ReturnIsConnected { get; set; }
