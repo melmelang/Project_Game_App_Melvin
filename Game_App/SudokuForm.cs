@@ -390,14 +390,15 @@ namespace Game_App
 
                 if (realNumber == numberInt)
                 {
-                    textBox.BackColor = Color.Green;
+                    textBox.BackColor = Color.Yellow;
+                    textBox.ForeColor = Color.Black;
                     textBox.Enabled = false;
                     Win();
                 }
                 else
                 {
                     ExtraScore += 100;
-                    textBox.BackColor = Color.Red;
+                    textBox.BackColor = Color.Red; 
                     textBox.Text = "";
                 }
             }

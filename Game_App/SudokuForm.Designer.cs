@@ -121,6 +121,7 @@
             this.HardLabel = new System.Windows.Forms.Label();
             this.Hint = new System.Windows.Forms.Button();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // X1Y1
@@ -1079,9 +1080,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 581);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 16);
+            this.label4.Size = new System.Drawing.Size(76, 16);
             this.label4.TabIndex = 87;
-            this.label4.Text = "Max Score:";
+            this.label4.Text = "Best Score:";
             // 
             // EasyLabel
             // 
@@ -1144,11 +1145,21 @@
             this.listBox1.Size = new System.Drawing.Size(312, 176);
             this.listBox1.TabIndex = 92;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(690, 297);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(56, 16);
+            this.label5.TabIndex = 93;
+            this.label5.Text = "Difficulty";
+            // 
             // SudokuForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(952, 650);
+            this.ClientSize = new System.Drawing.Size(995, 650);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.listBox1);
             this.Controls.Add(this.Hint);
             this.Controls.Add(this.HardLabel);
@@ -1345,5 +1356,6 @@
         private System.Windows.Forms.Label HardLabel;
         private System.Windows.Forms.Button Hint;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label5;
     }
 }
