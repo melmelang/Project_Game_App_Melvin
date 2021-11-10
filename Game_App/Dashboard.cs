@@ -174,6 +174,7 @@ namespace Game_App
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RefreshScore(true);
+            RefreshScore(false);
         }
     }
 }
