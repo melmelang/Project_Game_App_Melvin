@@ -18,6 +18,7 @@ namespace Game_App
         public static TicTacToeForm ticTacToe;
         public static SudokuForm sudoku;
         int playerid;
+        bool openedTicTacToe = false;
 
         public Dashboard()
         {
@@ -111,6 +112,7 @@ namespace Game_App
                 ticTacToe.Show();
                 ticTacToe.Location = new Point(0, 0);
                 ticTacToe.WindowState = FormWindowState.Maximized;
+                openedTicTacToe = true;
             }
             else
             {
@@ -174,7 +176,10 @@ namespace Game_App
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
             RefreshScore(true);
-            RefreshScore(false);
+            if (openedTicTacToe)
+            {
+                RefreshScore(false);
+            }
         }
     }
 }

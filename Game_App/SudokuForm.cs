@@ -352,6 +352,8 @@ namespace Game_App
             {
                 playerid = i.PlayerId;
             }
+
+            Difficulty.Text = "Easy";
             RefreshScore();
         }
 
