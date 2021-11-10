@@ -45,7 +45,7 @@
             // 
             // Retry
             // 
-            this.Retry.Location = new System.Drawing.Point(231, 346);
+            this.Retry.Location = new System.Drawing.Point(1011, 390);
             this.Retry.Name = "Retry";
             this.Retry.Size = new System.Drawing.Size(124, 44);
             this.Retry.TabIndex = 21;
@@ -56,7 +56,7 @@
             // TIC9
             // 
             this.TIC9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC9.Location = new System.Drawing.Point(319, 219);
+            this.TIC9.Location = new System.Drawing.Point(1099, 263);
             this.TIC9.Name = "TIC9";
             this.TIC9.Size = new System.Drawing.Size(45, 45);
             this.TIC9.TabIndex = 20;
@@ -66,7 +66,7 @@
             // TIC8
             // 
             this.TIC8.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC8.Location = new System.Drawing.Point(268, 219);
+            this.TIC8.Location = new System.Drawing.Point(1048, 263);
             this.TIC8.Name = "TIC8";
             this.TIC8.Size = new System.Drawing.Size(45, 45);
             this.TIC8.TabIndex = 19;
@@ -76,7 +76,7 @@
             // TIC7
             // 
             this.TIC7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC7.Location = new System.Drawing.Point(217, 219);
+            this.TIC7.Location = new System.Drawing.Point(997, 263);
             this.TIC7.Name = "TIC7";
             this.TIC7.Size = new System.Drawing.Size(45, 45);
             this.TIC7.TabIndex = 18;
@@ -86,7 +86,7 @@
             // TIC6
             // 
             this.TIC6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC6.Location = new System.Drawing.Point(319, 168);
+            this.TIC6.Location = new System.Drawing.Point(1099, 212);
             this.TIC6.Name = "TIC6";
             this.TIC6.Size = new System.Drawing.Size(45, 45);
             this.TIC6.TabIndex = 17;
@@ -96,7 +96,7 @@
             // TIC5
             // 
             this.TIC5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC5.Location = new System.Drawing.Point(268, 168);
+            this.TIC5.Location = new System.Drawing.Point(1048, 212);
             this.TIC5.Name = "TIC5";
             this.TIC5.Size = new System.Drawing.Size(45, 45);
             this.TIC5.TabIndex = 16;
@@ -106,7 +106,7 @@
             // TIC4
             // 
             this.TIC4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC4.Location = new System.Drawing.Point(217, 168);
+            this.TIC4.Location = new System.Drawing.Point(997, 212);
             this.TIC4.Name = "TIC4";
             this.TIC4.Size = new System.Drawing.Size(45, 45);
             this.TIC4.TabIndex = 15;
@@ -116,7 +116,7 @@
             // TIC3
             // 
             this.TIC3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC3.Location = new System.Drawing.Point(319, 117);
+            this.TIC3.Location = new System.Drawing.Point(1099, 161);
             this.TIC3.Name = "TIC3";
             this.TIC3.Size = new System.Drawing.Size(45, 45);
             this.TIC3.TabIndex = 14;
@@ -126,7 +126,7 @@
             // TIC2
             // 
             this.TIC2.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC2.Location = new System.Drawing.Point(268, 117);
+            this.TIC2.Location = new System.Drawing.Point(1048, 161);
             this.TIC2.Name = "TIC2";
             this.TIC2.Size = new System.Drawing.Size(45, 45);
             this.TIC2.TabIndex = 13;
@@ -136,7 +136,7 @@
             // TIC1
             // 
             this.TIC1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F);
-            this.TIC1.Location = new System.Drawing.Point(217, 117);
+            this.TIC1.Location = new System.Drawing.Point(997, 161);
             this.TIC1.Name = "TIC1";
             this.TIC1.Size = new System.Drawing.Size(45, 45);
             this.TIC1.TabIndex = 12;
@@ -145,7 +145,7 @@
             // 
             // Leave
             // 
-            this.Leave.Location = new System.Drawing.Point(384, 346);
+            this.Leave.Location = new System.Drawing.Point(1164, 390);
             this.Leave.Name = "Leave";
             this.Leave.Size = new System.Drawing.Size(135, 44);
             this.Leave.TabIndex = 11;
@@ -156,7 +156,7 @@
             // Wins
             // 
             this.Wins.AutoSize = true;
-            this.Wins.Location = new System.Drawing.Point(214, 28);
+            this.Wins.Location = new System.Drawing.Point(994, 72);
             this.Wins.Name = "Wins";
             this.Wins.Size = new System.Drawing.Size(43, 16);
             this.Wins.TabIndex = 22;
@@ -165,7 +165,7 @@
             // Loses
             // 
             this.Loses.AutoSize = true;
-            this.Loses.Location = new System.Drawing.Point(320, 28);
+            this.Loses.Location = new System.Drawing.Point(1100, 72);
             this.Loses.Name = "Loses";
             this.Loses.Size = new System.Drawing.Size(47, 16);
             this.Loses.TabIndex = 23;
@@ -175,7 +175,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(598, 450);
+            this.ClientSize = new System.Drawing.Size(3524, 1175);
+            this.ControlBox = false;
             this.Controls.Add(this.Loses);
             this.Controls.Add(this.Wins);
             this.Controls.Add(this.Retry);
@@ -189,8 +190,11 @@
             this.Controls.Add(this.TIC2);
             this.Controls.Add(this.TIC1);
             this.Controls.Add(this.Leave);
+            this.MinimumSize = new System.Drawing.Size(1556, 712);
             this.Name = "TicTacToeForm";
             this.Text = "TicTacToe";
+            this.TopMost = true;
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.TicTacToeForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

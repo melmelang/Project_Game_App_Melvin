@@ -15,6 +15,8 @@ namespace Game_App
         Game_App_DbEntities db = new Game_App_DbEntities();
         public static bool isConnected = false;
         public static string playerName;
+        public static TicTacToeForm ticTacToe;
+        public static SudokuForm sudoku;
         int playerid;
 
         public Dashboard()
@@ -100,17 +102,37 @@ namespace Game_App
         }
 
         private void tikTakToeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            TicTacToeForm ticTacToe = new TicTacToeForm();
-            ticTacToe.ShowDialog();
-            RefreshScore(false);
+        { 
+            if (ticTacToe == null)
+            {
+                ticTacToe = new TicTacToeForm();
+                this.IsMdiContainer = true;
+                ticTacToe.MdiParent = this;
+                ticTacToe.Show();
+                ticTacToe.Location = new Point(0, 0);
+                ticTacToe.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                ticTacToe.BringToFront();
+            }
         }
 
         private void SudokuToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SudokuForm sudoku = new SudokuForm();
-            sudoku.ShowDialog();
-            RefreshScore(true);
+            if (sudoku == null)
+            {
+                sudoku = new SudokuForm();
+                this.IsMdiContainer = true;
+                sudoku.MdiParent = this;
+                sudoku.Show();
+                sudoku.Location = new Point(0, 0);
+                sudoku.WindowState = FormWindowState.Maximized;
+            }
+            else
+            {
+                sudoku.BringToFront();
+            }
         }
 
         private void disconnectToolStripMenuItem_Click(object sender, EventArgs e)

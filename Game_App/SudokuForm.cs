@@ -373,6 +373,7 @@ namespace Game_App
 
         private void Leave_Click(object sender, EventArgs e)
         {
+            Dashboard.sudoku = null;
             Close();
         }
 
