@@ -70,7 +70,7 @@
             this.refreshToolStripMenuItem});
             this.dashboardMenu.Location = new System.Drawing.Point(0, 0);
             this.dashboardMenu.Name = "dashboardMenu";
-            this.dashboardMenu.Size = new System.Drawing.Size(1538, 30);
+            this.dashboardMenu.Size = new System.Drawing.Size(1538, 28);
             this.dashboardMenu.TabIndex = 4;
             this.dashboardMenu.Text = "menuStrip1";
             // 
@@ -80,7 +80,7 @@
             this.disconnectToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.PlayerNameLabel.Name = "PlayerNameLabel";
-            this.PlayerNameLabel.Size = new System.Drawing.Size(63, 24);
+            this.PlayerNameLabel.Size = new System.Drawing.Size(63, 26);
             this.PlayerNameLabel.Text = "Player";
             // 
             // disconnectToolStripMenuItem
@@ -100,20 +100,21 @@
             // SudokuToolStripMenuItem
             // 
             this.SudokuToolStripMenuItem.Name = "SudokuToolStripMenuItem";
-            this.SudokuToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
+            this.SudokuToolStripMenuItem.Size = new System.Drawing.Size(72, 26);
             this.SudokuToolStripMenuItem.Text = "Sudoku";
             this.SudokuToolStripMenuItem.Click += new System.EventHandler(this.SudokuToolStripMenuItem_Click);
             // 
             // tikTakToeToolStripMenuItem
             // 
             this.tikTakToeToolStripMenuItem.Name = "tikTakToeToolStripMenuItem";
-            this.tikTakToeToolStripMenuItem.Size = new System.Drawing.Size(99, 24);
+            this.tikTakToeToolStripMenuItem.Size = new System.Drawing.Size(99, 26);
             this.tikTakToeToolStripMenuItem.Text = "Tik-Tak-Toe";
             this.tikTakToeToolStripMenuItem.Click += new System.EventHandler(this.tikTakToeToolStripMenuItem_Click);
             // 
             // refreshToolStripMenuItem
             // 
             this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F5)));
             this.refreshToolStripMenuItem.Size = new System.Drawing.Size(72, 24);
             this.refreshToolStripMenuItem.Text = "Refresh";
             this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
