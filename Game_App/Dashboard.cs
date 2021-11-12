@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game_App
@@ -81,7 +77,7 @@ namespace Game_App
         private void Dashboard_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'game_App_DbDataSet.Player' table. You can move, or remove it, as needed.
-            this.playerTableAdapter.Fill(this.game_App_DbDataSet.Player);
+            playerTableAdapter.Fill(game_App_DbDataSet.Player);
             Login login = new Login();
             login.ShowDialog();
             playerName = Login.ReturnPlayerName;
@@ -99,15 +95,17 @@ namespace Game_App
             RefreshScore(true);
 
             if (Login.ReturnIsConnected == false)
+            {
                 Close();
+            }
         }
 
         private void tikTakToeToolStripMenuItem_Click(object sender, EventArgs e)
-        { 
+        {
             if (ticTacToe == null)
             {
                 ticTacToe = new TicTacToeForm();
-                this.IsMdiContainer = true;
+                IsMdiContainer = true;
                 ticTacToe.MdiParent = this;
                 ticTacToe.Show();
                 ticTacToe.Location = new Point(0, 0);
@@ -125,7 +123,7 @@ namespace Game_App
             if (sudoku == null)
             {
                 sudoku = new SudokuForm();
-                this.IsMdiContainer = true;
+                IsMdiContainer = true;
                 sudoku.MdiParent = this;
                 sudoku.Show();
                 sudoku.Location = new Point(0, 0);
@@ -157,7 +155,9 @@ namespace Game_App
             RefreshScore(true);
 
             if (Login.ReturnIsConnected == false)
+            {
                 Close();
+            }
         }
 
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -167,9 +167,9 @@ namespace Game_App
 
         private void playerBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            this.Validate();
-            this.playerBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.game_App_DbDataSet);
+            Validate();
+            playerBindingSource.EndEdit();
+            tableAdapterManager.UpdateAll(game_App_DbDataSet);
 
         }
 

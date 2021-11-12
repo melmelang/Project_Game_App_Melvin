@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Game_App
@@ -29,7 +26,7 @@ namespace Game_App
         public SudokuForm()
         {
             InitializeComponent();
-            T += new Score(this.CreateScoreEvent);
+            T += new Score(CreateScoreEvent);
         }
 
         public DateTime CreateScoreEvent(DateTime GetTime)
@@ -385,7 +382,7 @@ namespace Game_App
             int indexOfNumber = text.IndexOf(textBox);
             int realNumber = numbers[indexOfNumber];
 
-            string numberSting = (string)textBox.Text;
+            string numberSting = textBox.Text;
 
             if (IsEveritingADigit(numberSting) && !string.IsNullOrEmpty(numberSting))
             {
@@ -401,7 +398,7 @@ namespace Game_App
                 else
                 {
                     ExtraScore += 100;
-                    textBox.BackColor = Color.Red; 
+                    textBox.BackColor = Color.Red;
                     textBox.Text = "";
                 }
             }
